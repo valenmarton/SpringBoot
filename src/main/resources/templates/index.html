@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+	#head {
+		 width: 50%;
+		  padding: 10px;
+		  margin: auto;
+		  text-align: center;
+	}
+	
+	article {
+		  width: 50%;
+		  padding: 10px 10px 10px 10px;
+		  margin: auto;
+		  margin-top: 10px;
+		  background-color: gray;
+		  color: white;
+		  font-size: 30px;
+		  border-radius: 20px;
+		  opacity: 0.6;
+	}
+	
+	.addStory {
+		position: absolute;
+		top: 0;
+		float:left;
+		margin-top: 50px;
+		margin-left: 50px;
+	}
+	input {
+		margin-top: 20px;
+	}
+	textarea {
+		margin-top :20px;
+	}
+</style>
+</head>
+
+<body>
+	<header id="head">
+		<h1>Hi there</h1>
+	</header>
+
+	<article th:each="story : ${stories}">
+		<header>
+			Cím: <span th:text="${story.title}"> Ez itt a cím</span><br>
+			Dátum: <span th:text="${#dates.format(story.latestUpdated, 'yyyy.MM.dd')}"> Ide jön a dátum </span>
+		</header>
+		<section th:utext="${story.content}">
+			<p>Ide jön a tartalom</p>
+		</section>
+		
+		<footer>
+			Beküldte: <span th:text="${story.autor.name}">,<span th:text="${story.autor.age}"> Beküldő </span>
+		</footer>
+	</article>
+	
+	<form class="addStory" action="/addstory">
+		<table>
+		<tr><td>Név: </td><td><input name="name"></td></tr>
+		<tr><td>Kor: </td><td><input name="age"></td></tr>
+		<tr><td>Cím: </td><td><input name="title"></td></tr>
+		<tr><td>Tartalom: </td><td><textarea name="content" rows="4" cols="30"></textarea></td></tr>
+		</table>
+		<input type="submit">
+	</form>
+</body>
+</html>
